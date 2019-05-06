@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ym.mybatis.mapper.PersonMapper">
+
+    <select id="getPersonById" resultType="person">
+        select * from person where id = #{id}
+    </select>
+
+    <insert id="insertPerson" parameterType="person" useGeneratedKeys="true" keyProperty="id">
+        insert into person (name,sex)
+            values (#{name},#{sex})
+    </insert>
+
+    <select id="getPersonWithNameReturnMap" resultType="person">
+        select * from person where name like #{name}
+    </select>
+
+    <select id="getpersonByIdReturnmap" resultType="map">
+        select * from person where id = #{id}
+    </select>
+
+    <select id="getPersonWithNameLike" resultType="person">
+        select * from person where name like #{name}
+    </select>
+
+    <select id="getPersonByMap" resultType="person">
+        select * from ${table} where id = #{id} and name = #{name}
+    </select>
+
+    <select id="getPersonByIdAndName" resultType="person">
+        select * from person where id = #{id} and name = #{name}
+    </select>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ym.mybatis.mapper.PersonMapperPlus">
+    <!--select p.id,p.name,p.sex,p.class_id,pc.name class_name
+        from person p join person_class pc
+        on p.class_id = pc.id;-->
+    <resultMap id="myMap1" type="person">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+
+        <association property="personClass" javaType="personClass">
+            <id column="class_id" property="id"/>
+            <result column="class_name" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="getPersonAndClass" resultMap="myMap1">
+        select p.id,p.name,p.sex,p.class_id,pc.name class_name
+          from person p join person_class pc
+          on p.class_id = pc.id and p.id=#{id}
+    </select>
+
+    <!--分步查询：1.通过person的id查询person信息
+                2.根据person结果中的class_id去person_class表中查出class信息
+                3.class设置到person中-->
+    <resultMap id="myMapStep" type="person">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+
+        <association property="personClass"
+                     select="ym.mybatis.mapper.PersonClassMapper.getPersonClassById"
+                     column="class_id"/>
+    </resultMap>
+
+    <select id="getPersonByIdStep" resultMap="myMapStep">
+        select * from person where id=#{id}
+    </select>
+
+    <select id="getPersonByClassId" resultType="person">
+        select * from person where class_id=#{classId}
+    </select>
+</mapper>

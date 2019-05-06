@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ym.mybatis.mapper.PersonClassMapper">
+    <select id="getPersonClassById" resultType="personClass">
+        select * from person_class where id=#{id}
+    </select>
+
+    <resultMap id="myClassMapStep" type="personClass">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <collection property="persons"
+                    select="ym.mybatis.mapper.PersonMapperPlus.getPersonByClassId"
+                    column="id"/>
+    </resultMap>
+
+    <select id="getClassByClassIdStep" resultMap="myClassMapStep">
+        select * from person_class where id=#{id}
+    </select>
+
+    <!--select c.id id,c.name name,p.id p_id,p.name p_name,p.sex
+        from person p right join person_class c
+        on p.class_id = c.id;-->
+    <resultMap id="myClassMap" type="personClass">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <collection property="persons" ofType="ym.mybatis.domain.Person">
+            <id column="p_id" property="id"/>
+            <result column="p_name" property="name"/>
+            <result column="sex" property="sex"/>
+        </collection>
+    </resultMap>
+
+    <select id="getPersonClassByIdPlus" resultMap="myClassMap">
+        select c.id id,c.name name,p.id p_id,p.name p_name,p.sex
+        from person p join person_class c
+        on p.class_id = c.id and c.id=#{id}
+    </select>
+</mapper>

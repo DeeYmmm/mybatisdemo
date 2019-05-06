@@ -40,9 +40,10 @@ public class MybatisTest {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         try {
             PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
-            Person person=new Person("周瑜","asdas");
+            Person person=new Person("电棍","man");
             boolean b = personMapper.insertPerson(person);
             System.out.println(b);
+            System.out.println(person);
         }finally {
             sqlSession.close();
         }
