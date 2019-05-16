@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ym.mybatis.mapper.PersonMapper">
+    <!--<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>-->
 
     <select id="getPersonById" resultType="person">
         select * from person where id = #{id}

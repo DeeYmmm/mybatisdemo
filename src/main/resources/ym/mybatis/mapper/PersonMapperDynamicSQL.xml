@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ym.mybatis.mapper.PersonMapperDynamicSQL">
+    <select id="getPersonsByConditionIf" resultType="person">
+        select * from person
+        <where>
+            <if test="id!=0">and id=#{id}</if>
+            <if test="name!=null&amp;&amp;name!=''">and name like #{name}</if>
+        </where>
+    </select>
+
+    <select id="getPersonsByConditionTrim" resultType="person">
+        select * from person
+        <trim prefix="where" suffixOverrides="and">
+            <if test="id!=0">id=#{id} and </if>
+            <if test="name!=null&amp;&amp;name!=''">name like #{name} and </if>
+        </trim>
+    </select>
+
+    <select id="getPersonsByConditionChoose" resultType="person">
+        select * from person
+        <where>
+            <choose>
+                <when test="id!=0">and id=#{id}</when>
+                <when test="name!=null&amp;&amp;name!=''">and name like #{name}</when>
+            </choose>
+        </where>
+    </select>
+
+    <update id="updatePerson">
+        update person
+        <set>
+            <if test="name!=null&amp;&amp;name!=''">name=#{name},</if>
+            <if test="sex!=null&amp;&amp;sex!=''">sex=#{sex},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="getPersonsByConditionForeach" resultType="person">
+        select * from person
+        <foreach collection="ids" item="item_id" separator="," open="where id in(" close=")">
+            #{item_id}
+        </foreach>
+    </select>
+
+    <insert id="addPersonsBatch">
+        insert into person(name,sex,class_id) values
+            <foreach collection="persons" item="person" separator=",">
+                (#{person.name},#{person.sex},#{person.personClass.id})
+            </foreach>
+    </insert>
+</mapper>

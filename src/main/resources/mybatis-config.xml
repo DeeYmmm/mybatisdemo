@@ -7,6 +7,8 @@
 
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--<setting name="cacheEnabled" value="true"/>
+        <setting name="localCacheScope" value="SESSION"/>-->
         <!--全局开启懒加载（用时才加载）-->
         <setting name="lazyLoadingEnabled" value="true"/>
         <setting name="aggressiveLazyLoading" value="false"/>

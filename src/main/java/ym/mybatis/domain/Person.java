@@ -1,6 +1,8 @@
 package ym.mybatis.domain;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
 
     private int id;
     private String name;
@@ -13,6 +15,12 @@ public class Person {
     public Person(String name, String sex) {
         this.name = name;
         this.sex = sex;
+    }
+
+    public Person(String name, String sex, PersonClass personClass) {
+        this.name = name;
+        this.sex = sex;
+        this.personClass = personClass;
     }
 
     public PersonClass getPersonClass() {

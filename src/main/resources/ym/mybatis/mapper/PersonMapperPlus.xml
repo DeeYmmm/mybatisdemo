@@ -19,7 +19,7 @@
 
     <select id="getPersonAndClass" resultMap="myMap1">
         select p.id,p.name,p.sex,p.class_id,pc.name class_name
-          from person p join person_class pc
+          from person p join ymmm.person_class pc
           on p.class_id = pc.id and p.id=#{id}
     </select>
 

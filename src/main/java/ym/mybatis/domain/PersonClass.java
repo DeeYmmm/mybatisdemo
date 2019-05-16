@@ -1,12 +1,20 @@
 package ym.mybatis.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PersonClass {
+public class PersonClass implements Serializable {
 
     private int id;
     private String name;
     private List<Person> persons;
+
+    public PersonClass() {
+    }
+
+    public PersonClass(int id) {
+        this.id = id;
+    }
 
     public List<Person> getPersons() {
         return persons;
