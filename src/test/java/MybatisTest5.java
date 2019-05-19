@@ -58,8 +58,8 @@ public class MybatisTest5 {
             System.out.println(person);
             sqlSession.close();
 
-            Person person2=new Person("Lux","nv");
-            mapper1.insertPerson(person2);
+            /*Person person2=new Person("Lux","nv");
+            mapper1.insertPerson(person2);*/
             Person person1 = mapper1.getPersonById(40);
             System.out.println(person1);
         } finally {
